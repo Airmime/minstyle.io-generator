@@ -20,7 +20,6 @@ JAVA REST Service :
 * bucket4j (Allowing request throttling control  implementation)
 * lombok
 * commons-io
-* 
 
 Data :
 * MongoDB Database (on MongoDB Cloud)
@@ -28,7 +27,7 @@ Data :
 Web :
 * HTML/CSS, JS
 * [minstyle.io](http://minstyle.io) CSS Framework.
-* [https://github.com/mdbassit/Coloris](https://github.com/mdbassit/Coloris) (for color picker).
+* [Coloris](https://github.com/mdbassit/Coloris) (for color picker).
 
 ## Use
 
