@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/minstyle.io@2.0.0/dist/css/minstyle.io.min.css">
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="shortcut icon" href="img/favicon.ico" />
+    <title>Generate custom CSS - minstyle.io</title>
+    <meta name="description" content="Generate custom CSS, with minstyle.io framework CSS." />
+  </head>
+  <body>
+    <header class="gnt-header">
+      <div class="gnt-header--menu">
+        <div class="gnt-header--logo">
+          <img src="./img/logo.png" alt="Logo" />
+        </div>
+
+        <div class="gnt-header--links">
+          <ul>
+            <li>
+              <a href="https://github.com/Airmime/minstyle.io" target="_blank"><i class="fab fa-github"></i> Github</a>
+            </li>
+            <li>
+              <a href="https://minstyle.io/" class="gnt-btn"
+                ><i class="fas fa-long-arrow-alt-left"></i> Back to
+                minstyle.io</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="gnt-header--infos">
+        <div class="gnt-header--text">
+          <p>
+            <i class="fas fa-info-circle"></i> To generate a custom style sheet,
+            please select the your 4 colors. See <a href="https://minstyle.io/docs/Layout/generator">documentation</a>.
+          </p>
+        </div>
+        <div class="gnt-header--preview">
+          How will my website look like?
+          <button class="ms-btn ms-outline" id="preview">
+            <i class="far fa-eye"></i> Preview
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <div class="gnt-container">
+      <div
+        class="gnt-column"
+        id="--primary-bg-color"
+        style="background-color: #fa4d60"
+      >
+        <input
+          class="gnt-color-picker"
+          type="text"
+          value="#fa4d60"
+          data-coloris
+          data-color="--primary-bg-color"
+        /><br />
+        <span>Primary color.</span>
+      </div>
+      <div
+        class="gnt-column"
+        id="--secondary-bg-color"
+        style="background-color: #468cb4"
+      >
+        <input
+          class="gnt-color-picker"
+          type="text"
+          value="#468cb4"
+          data-coloris
+          data-color="--secondary-bg-color"
+        /><br />
+        <span>Secondary color.</span>
+      </div>
+      <div
+        class="gnt-column"
+        id="--action-bg-color"
+        style="background-color: #41539b"
+      >
+        <input
+          class="gnt-color-picker"
+          type="text"
+          value="#41539b"
+          data-coloris
+          data-color="--action-bg-color"
+        /><br />
+        <span>Action 1 color.</span>
+      </div>
+      <div
+        class="gnt-column"
+        id="--action2-bg-color"
+        style="background-color: #f38026"
+      >
+        <input
+          class="gnt-color-picker"
+          type="text"
+          value="#f38026"
+          data-coloris
+          data-color="--action2-bg-color"
+        /><br />
+        <span>Action 2 color.</span>
+      </div>
+    </div>
+
+    <div class="generate-css">
+      <button class="cta" id="generate">
+        <span>Generate Custom CSS</span>
+        <svg width="15px" height="10px" viewBox="0 0 13 10">
+          <path d="M1,5 L11,5"></path>
+          <polyline points="8 1 12 5 8 9"></polyline>
+        </svg>
+      </button>
+    </div>
+
+    <div class="gnt-modal" id="modal">
+      <div class="gnt-modal--background" id="modal-bg"></div>
+      <div class="gnt-modal--loader" id="modal-loader">
+        <div class="ms-loading ms-medium ms-primary"></div>
+      </div>
+      <div class="gnt-modal--content" id="modal-content">
+        <div class="ms-menu">
+          <div class="ms-menu-logo">
+            <p>Preview custom CSS</p>
+          </div>
+          <nav class="ms-menu-link">
+            <input type="checkbox" id="ms-menu-toggle" />
+            <label for="ms-menu-toggle" class="ms-menu-icon"
+              ><i class="fa fa-bars"></i
+            ></label>
+            <ul>
+              <li><a href="">Link 1</a></li>
+              <li><a href="">Link 2</a></li>
+              <li><a href="">Link 3</a></li>
+              <li>
+                <input type="text" placeholder="search" name="" id="" />
+              </li>
+            </ul>
+          </nav>
+        </div>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-8">
+              <div class="ms-alert ms-primary ms-fullwidth">
+                This is an alert with primary color.
+                <span class="ms-close"></span>
+              </div>
+              <div class="ms-progress">
+                <div class="ms-progress-fill ms-secondary" style="width: 70%">70% (secondary color for progress bar).</div>
+              </div>
+              <div class="ms-article">
+                <div class="ms-article-picture">
+                  <img
+                    src="https://images.unsplash.com/photo-1559335823-e27122e727a9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=964&q=80"
+                    alt="background"
+                  />
+                  <div class="ms-article-picture-overlay"></div>
+                  <div class="ms-article-picture-title">
+                    <a>Preview custom CSS</a>
+                  </div>
+                </div>
+                <div class="ms-article-infos">
+                  <ul>
+                    <li>
+                      <i class="fas fa-user-circle"></i> Author <b>John Doe</b>
+                    </li>
+                    <li><i class="fas fa-folder"></i> Category <b>IT</b></li>
+                    <li>
+                      <i class="fas fa-clock"></i> Time <b>42 minutes later</b>
+                    </li>
+                  </ul>
+                </div>
+                <div class="ms-list-label">
+                  <ul>
+                    <li>
+                      <div class="ms-label ms-primary ms-rounded">primary</div>
+                      <div
+                        class="ms-label ms-secondary ms-rounded"
+                      >
+                        secondary
+                      </div>
+                      <div class="ms-label ms-action ms-rounded">
+                        action
+                      </div>
+                      <div class="ms-label ms-action2 ms-rounded">action2</div>
+                    </li>
+                  </ul>
+                </div>
+                <div class="ms-article-title">
+                  <a href="">Article's title</a>
+                </div>
+                <div class="ms-article-text">
+                  <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. In
+                    itaque enim maxime possimus illum quas perspiciatis debitis
+                    omnis at! Cumque nam ut temporibus perferendis earum vel
+                    quia dignissimos, mollitia voluptas! Lorem ipsum dolor sit
+                    amet consectetur, adipisicing elit. 
+                    
+                    <blockquote class="ms-blockquote">
+                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit... <a class="ms-btn ms-primary ms-small"> Primary button</a></p>
+                    </blockquote>
+
+                    Saepe expedita aliquid
+                    inventore enim, autem distinctio, ullam in optio esse
+                    recusandae excepturi pariatur, corrupti velit! Consequuntur
+                    porro distinctio veniam aliquid culpa!
+
+                    <h3>Second title</h3>
+
+                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Distinctio nihil aperiam molestiae veritatis dicta architecto impedit mollitia velit quod a laborum, maiores, autem ad aut placeat praesentium aliquid natus esse.
+                  </br></br>
+                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Alias culpa recusandae quam molestias magni eveniet illo esse eius perspiciatis, error ab aspernatur mollitia ipsa officiis excepturi pariatur quo debitis consequuntur.
+                  </p>
+                </div>
+                <div class="ms-btn">Button</div>
+                <div class="ms-btn ms-primary">Primary Button</div>
+                <div class="ms-btn ms-secondary">Secondary Button</div>
+                <div class="ms-btn ms-action">Action Button</div>
+                <div class="ms-btn ms-action2">Action2 Button</div>
+              </div>
+              <hr />
+              <div class="ms-pagination">
+                <ul>
+                  <li><a>Prev</a></li>
+                  <li><a  class="ms-disabled">...</a></li>
+                  <li><a >11</a></li>
+                  <li><a >12</a></li>
+                  <li><a  class="ms-active">13</a></li>
+                  <li><a >14</a></li>
+                  <li><a >15</a></li>
+                  <li><a  class="ms-disabled">...</a></li>
+                  <li><a  class="ms-disabled">Next</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="ms-alert ms-secondary ms-fullwidth">This is an alert with primary color.<span class="ms-close"></span></div>
+              <div class="ms-card ms-border">
+                <div class="ms-card-title">
+                  <h2>minstyle.io card.</h2>
+                </div>
+                <div class="ms-card-content">
+                  <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum
+                    itaque maxime soluta hic? Iure reiciendis facere qui beatae
+                    quasi repellendus, nemo incidunt quod! Quae sed odit illo. Amet,
+                    rerum et!
+                  </p>
+                </div>
+                <div class="ms-card-btn">
+                  <a class="ms-btn ms-action ms-fullwidth ms-rounded">Action</a>
+                </div>
+              </div>
+              <form>
+                <div class="row">
+                  <div class="col-sm">
+                    <div class="ms-form-group">
+                      <label for="Login">Login</label>
+                      <input type="text" placeholder="Login" id="Login" />
+                    </div>
+                    <div class="ms-form-group">
+                      <label for="Mail">Mail</label>
+                      <input type="text" placeholder="Mail" id="Mail" />
+                    </div>
+                  </div>
+                  <div class="col-sm">
+                    <div class="ms-form-group">
+                      <label>Password</label>
+                      <input type="password" placeholder="Password"/>
+                    </div>
+                    <div class="ms-form-group">
+                      <label>Retype password</label>
+                      <input type="password" placeholder="Password"/>
+                    </div>
+                  </div>
+                  <div>
+                    <a class="ms-btn ms-primary ms-outline">Primary</a>
+                    <a class="ms-btn ms-secondary ms-underline">Secondary</a>
+                    <a class="ms-btn ms-action ms-outline">Action</a>
+                    <a class="ms-btn ms-action2">Action2</a>
+                  </div>
+                </div>
+              </form>
+              <div class="ms-card ms-fill">
+                <div class="ms-card-title">
+                  <h2>Yosemite national park</h2>
+                </div>
+                <div class="ms-card-content">
+                  <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum
+                    itaque maxime soluta hic? Iure reiciendis facere qui beatae
+                    quasi repellendus, nemo incidunt quod! Quae sed odit illo. Amet,
+                    rerum et!
+                  </p>
+                </div>
+                <div class="ms-card-btn">
+                  <a class="ms-btn ms-action2 ms-underline">Action2</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <footer class="ms-footer ms-small">
+          <div class="container">
+            <p>Copyright - All rights reserved - &copy;<b>minstyle.io</b> - <a href="">Github</a> - <a href="">Twitter</a></p>
+          </div>
+        </footer>
+      </div>
+    </div>
+
+    <link rel="stylesheet" href="/css/coloris.css" />
+    <script src="js/coloris.js"></script>
+    <script src="js/app.js"></script>
+    <script
+      type="text/javascript"
+      src="https://kit.fontawesome.com/d35975edad.js"
+    ></script>
+  </body>
+</html>
