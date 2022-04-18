@@ -11,7 +11,7 @@
 
 	<groupId>io.minstyle</groupId>
 	<artifactId>minstyle.io-generator</artifactId>
-	<version>0.0.4</version>
+	<version>0.0.5</version>
 	<name>minstyle.io-generator</name>
 	<description>minstyle.io Generator</description>
 	<packaging>jar</packaging>

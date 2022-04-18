@@ -46,7 +46,7 @@ public class TemplateFileServiceImpl implements TemplateFileService {
         /* Get remote file from GitHub, with jsdelivr */
         try {
             FileUtils.copyURLToFile(
-                    new URL("https://cdn.jsdelivr.net/gh/Airmime/minstyle.io@V2.0.0/dist/css/minstyle.io.css"),
+                    new URL("https://cdn.jsdelivr.net/gh/Airmime/minstyle.io@V2.0.1/dist/css/minstyle.io.css"),
                     new File("temp/" + tempFilename),
                     3000,
                     3000
