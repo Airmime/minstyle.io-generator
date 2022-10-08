@@ -1,18 +1,17 @@
 package io.minstyle.msgenerator.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.ThreadLocalRandom;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 /**
  * Service implementation to generate custom CSS.
  *
  * @author Rémi Marion
- * @version 0.0.1
  */
 @Service
 public class GeneratorServiceImpl implements GeneratorService {
@@ -35,12 +34,12 @@ public class GeneratorServiceImpl implements GeneratorService {
      */
     public String generateCustomCSSFile(String primary, String secondary, String action, String action2) {
 
-        LOGGER.debug("-> Generate custom CSS with following customs colors : " + primary + ", " + secondary + ", " + action + "," + action2 + ".");
+        LOGGER.debug("-> Generate custom CSS with following customs colors : {}, {}, {}, {} ", primary, secondary, action, action2);
 
         /* Random ID for local file */
         int random = ThreadLocalRandom.current().nextInt(42000, 42000000 + 1);
         String tempFileName = random + "_" + "minstyle.io.css";
-        LOGGER.debug("Generate custom CSS with following temp filename : " + tempFileName + ".");
+        LOGGER.debug("Generate custom CSS with following temp filename : {}", tempFileName);
 
         /* Get template from remote */
         File generatedTemplateFile = templateFileService.getFileFromGitHub(tempFileName);
@@ -60,7 +59,7 @@ public class GeneratorServiceImpl implements GeneratorService {
         } catch (IOException e) {
             LOGGER.error("Could not read remote file.");
 
-        }finally {
+        } finally {
             /* Delete temp file */
             templateFileService.deleteTempFile(tempFileName);
             LOGGER.debug("Delete temp filename.");

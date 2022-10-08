@@ -1,11 +1,13 @@
 package io.minstyle.msgenerator.controller;
 
-import java.time.Duration;
-import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.Optional;
-
+import io.github.bucket4j.Bandwidth;
+import io.github.bucket4j.Bucket;
+import io.github.bucket4j.Bucket4j;
+import io.github.bucket4j.Refill;
 import io.minstyle.msgenerator.exception.BadColorException;
+import io.minstyle.msgenerator.model.CustomCSSModel;
+import io.minstyle.msgenerator.services.GeneratorService;
+import io.minstyle.msgenerator.services.MongoDBService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
@@ -13,23 +15,20 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import io.github.bucket4j.Bandwidth;
-import io.github.bucket4j.Bucket;
-import io.github.bucket4j.Bucket4j;
-import io.github.bucket4j.Refill;
-import io.minstyle.msgenerator.model.CustomCSSModel;
-import io.minstyle.msgenerator.services.MongoDBService;
-import io.minstyle.msgenerator.services.GeneratorService;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.Optional;
 
 /**
  * Manage download CSS controller.
  *
  * @author Rémi Marion
- * @version 0.0.1
  */
 @RestController
 public class MsGeneratorController {
@@ -77,7 +76,7 @@ public class MsGeneratorController {
 
                     /* Log in DB */
                     CustomCSSModel cssModel = new CustomCSSModel(LocalDateTime.now(), primaryColor, secondaryColor, actionColor, action2Color);
-                    CustomCSSModel cssModelDB = mongoDBService.writeInDB(cssModel);
+                    mongoDBService.writeInDB(cssModel);
 
                     /* Generate HTTP header */
                     HttpHeaders header = new HttpHeaders();

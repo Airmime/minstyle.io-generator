@@ -1,9 +1,7 @@
 package io.minstyle.msgenerator.controller;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
+import io.minstyle.msgenerator.ColorsEnum;
+import io.minstyle.msgenerator.services.GeneratorServiceImpl;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +10,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
-import io.minstyle.msgenerator.ColorsEnum;
-import io.minstyle.msgenerator.services.GeneratorServiceImpl;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
  * Integration tests for custom CSS.
@@ -56,8 +55,8 @@ class MsGeneratorControllerIT {
                         "/" + ColorsEnum.ACTION2.hexColor)).andReturn();
         String customCSS = mvcResult.getResponse().getContentAsString();
 
-        assertThat(customCSS.length()).isGreaterThan(0);
         assertThat(customCSS)
+                .isNotEmpty()
                 .contains("--primary-bg-color: 38, 70, 83")
                 .contains("--secondary-bg-color: 42, 157, 143")
                 .contains("--action-bg-color: 231, 111, 81")

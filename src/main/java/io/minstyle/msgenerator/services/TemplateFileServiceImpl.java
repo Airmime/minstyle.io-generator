@@ -12,17 +12,19 @@ import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Objects;
 
 /**
  * Service implementation allowing the management of the CSS template file.
  *
  * @author Rémi Marion
- * @version 0.0.1
  */
 @Service
 public class TemplateFileServiceImpl implements TemplateFileService {
 
     private final Environment environment;
+
+    private final static String TEMPDIR = "temp/";
 
     @Autowired
     public TemplateFileServiceImpl(Environment environment) {
@@ -47,7 +49,7 @@ public class TemplateFileServiceImpl implements TemplateFileService {
         try {
             FileUtils.copyURLToFile(
                     new URL("https://cdn.jsdelivr.net/gh/Airmime/minstyle.io@V2.0.1/dist/css/minstyle.io.css"),
-                    new File("temp/" + tempFilename),
+                    new File(TEMPDIR + tempFilename),
                     3000,
                     3000
             );
@@ -56,7 +58,7 @@ public class TemplateFileServiceImpl implements TemplateFileService {
         }
 
         /* Return file */
-        File templateFile = new File("temp/" + tempFilename);
+        File templateFile = new File(TEMPDIR + tempFilename);
 
         if (templateFile.exists()) {
             LOGGER.debug("Recovered template.");
@@ -79,7 +81,11 @@ public class TemplateFileServiceImpl implements TemplateFileService {
         LOGGER.debug("Get local template file.");
 
         try {
-            return new ClassPathResource(environment.getProperty("minstyle.io.template.path")).getFile();
+            if (environment.getProperty("minstyle.io.template.path") != null){
+                return new ClassPathResource(Objects.requireNonNull(environment.getProperty("minstyle.io.template.path"))).getFile();
+            }else {
+                return null;
+            }
 
         } catch (IOException e) {
             LOGGER.error("Error while retrieving the local template file.");
@@ -92,14 +98,14 @@ public class TemplateFileServiceImpl implements TemplateFileService {
      */
     @Override
     public void checkTempDir() {
-        File tempDir = new File("temp/");
+        File tempDir = new File(TEMPDIR);
 
         if (!tempDir.exists() && tempDir.isDirectory()) {
             tempDir.mkdirs();
-            LOGGER.debug("Temp/ directory created.");
+            LOGGER.debug(TEMPDIR + " directory created.");
 
         } else {
-            LOGGER.debug("Temp/ directory already exist.");
+            LOGGER.debug(TEMPDIR + " directory already exist.");
         }
     }
 
@@ -127,10 +133,15 @@ public class TemplateFileServiceImpl implements TemplateFileService {
         checkTempDir();
 
         /* Delete file */
-        File toDeleteFile = new File("temp/" + filename);
+        File toDeleteFile = new File(TEMPDIR + filename);
 
         if (toDeleteFile.exists()) {
-            toDeleteFile.delete();
+            try {
+                Files.delete(toDeleteFile.toPath());
+
+            } catch (IOException e) {
+                LOGGER.error("Error while deleting the file {}.", toDeleteFile.getName());
+            }
         }
     }
 }

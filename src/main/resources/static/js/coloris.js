@@ -5,9 +5,9 @@
  */
 
 (function (window, document, Math) {
-  var ctx = document.createElement("canvas").getContext("2d");
-  var currentColor = { r: 0, g: 0, b: 0, h: 0, s: 0, v: 0, a: 1 };
-  var picker,
+  let ctx = document.createElement("canvas").getContext("2d");
+  let currentColor = { r: 0, g: 0, b: 0, h: 0, s: 0, v: 0, a: 1 };
+  let picker,
     colorArea,
     colorAreaDims,
     colorMarker,
@@ -23,7 +23,7 @@
     oldColor;
 
   // Default settings
-  var settings = {
+  let settings = {
     el: "[data-coloris]",
     parent: null,
     theme: "default",
@@ -63,7 +63,7 @@
       return;
     }
 
-    for (var key in options) {
+    for (let key in options) {
       switch (key) {
         case "el":
           bindFields(options.el);
@@ -119,7 +119,7 @@
         case "swatches":
           if (Array.isArray(options.swatches)) {
             (function () {
-              var swatches = [];
+              let swatches = [];
 
               options.swatches.forEach(function (swatch, i) {
                 swatches.push(
@@ -147,7 +147,7 @@
           picker.setAttribute("data-alpha", settings.alpha);
           break;
         case "clearButton":
-          var display = "none";
+          let display = "none";
 
           if (options.clearButton.show) {
             display = "block";
@@ -160,11 +160,11 @@
           clearButton.style.display = display;
           break;
         case "a11y":
-          var labels = options.a11y;
-          var update = false;
+          let labels = options.a11y;
+          let update = false;
 
           if (typeof labels === "object") {
-            for (var label in labels) {
+            for (let label in labels) {
               if (labels[label] && settings.a11y[label]) {
                 settings.a11y[label] = labels[label];
                 update = true;
@@ -173,8 +173,8 @@
           }
 
           if (update) {
-            var openLabel = getEl("clr-open-label");
-            var swatchLabel = getEl("clr-swatch-label");
+            let openLabel = getEl("clr-open-label");
+            let swatchLabel = getEl("clr-swatch-label");
 
             openLabel.innerHTML = settings.a11y.open;
             swatchLabel.innerHTML = settings.a11y.swatch;
@@ -197,28 +197,28 @@
   function bindFields(selector) {
     // Show the color picker on click on the input fields that match the selector
     addListener(document, "click", selector, function (event) {
-      var parent = settings.parent;
-      var coords = event.target.getBoundingClientRect();
-      var scrollY = window.scrollY;
-      var reposition = { left: false, top: false };
-      var offset = { x: 0, y: 0 };
-      var left = coords.x;
-      var top = scrollY + coords.y + coords.height + settings.margin;
+      let parent = settings.parent;
+      let coords = event.target.getBoundingClientRect();
+      let scrollY = window.scrollY;
+      let reposition = { left: false, top: false };
+      let offset = { x: 0, y: 0 };
+      let left = coords.x;
+      let top = scrollY + coords.y + coords.height + settings.margin;
 
       currentEl = event.target;
       oldColor = currentEl.value;
       currentFormat = getColorFormatFromStr(oldColor);
       picker.classList.add("clr-open");
 
-      var pickerWidth = picker.offsetWidth;
-      var pickerHeight = picker.offsetHeight;
+      let pickerWidth = picker.offsetWidth;
+      let pickerHeight = picker.offsetHeight;
 
       // If the color picker is inside a custom container
       // set the position relative to it
       if (parent) {
-        var style = window.getComputedStyle(parent);
-        var marginTop = parseFloat(style.marginTop);
-        var borderTop = parseFloat(style.borderTopWidth);
+        let style = window.getComputedStyle(parent);
+        let marginTop = parseFloat(style.marginTop);
+        let borderTop = parseFloat(style.borderTopWidth);
 
         offset = parent.getBoundingClientRect();
         offset.y += borderTop + scrollY;
@@ -273,7 +273,7 @@
 
     // Update the color preview of the input fields that match the selector
     addListener(document, "input", selector, function (event) {
-      var parent = event.target.parentNode;
+      let parent = event.target.parentNode;
 
       // Only update the preview if the field has been previously wrapped
       if (parent.classList.contains("clr-field")) {
@@ -288,10 +288,10 @@
    */
   function wrapFields(selector) {
     document.querySelectorAll(selector).forEach(function (field) {
-      var parentNode = field.parentNode;
+      let parentNode = field.parentNode;
 
       if (!parentNode.classList.contains("clr-field")) {
-        var wrapper = document.createElement("div");
+        let wrapper = document.createElement("div");
 
         wrapper.innerHTML =
           '<button aria-labelledby="clr-open-label" class="clr-open-label"></button>';
@@ -336,8 +336,8 @@
    * @param {string} str String representing a color.
    */
   function setColorFromStr(str) {
-    var rgba = strToRGBA(str);
-    var hsva = RGBAtoHSVA(rgba);
+    let rgba = strToRGBA(str);
+    let hsva = RGBAtoHSVA(rgba);
 
     updateMarkerA11yLabel(hsva.s, hsva.v);
     updateColor(rgba, hsva);
@@ -361,7 +361,7 @@
    * @return {string} The color format.
    */
   function getColorFormatFromStr(str) {
-    var format = str.substring(0, 3).toLowerCase();
+    let format = str.substring(0, 3).toLowerCase();
 
     if (format === "rgb" || format === "hsl") {
       return format;
@@ -387,14 +387,14 @@
    * @param {number} y Top position.
    */
   function setColorAtPosition(x, y) {
-    var hsva = {
+    let hsva = {
       h: hueSlider.value * 1,
       s: (x / colorAreaDims.width) * 100,
       v: 100 - (y / colorAreaDims.height) * 100,
       a: alphaSlider.value / 100,
     };
 
-    var rgba = HSVAtoRGBA(hsva);
+    let rgba = HSVAtoRGBA(hsva);
 
     updateMarkerA11yLabel(hsva.s, hsva.v);
     updateColor(rgba, hsva);
@@ -407,7 +407,7 @@
    * @param {number} value
    */
   function updateMarkerA11yLabel(saturation, value) {
-    var label = settings.a11y.marker;
+    let label = settings.a11y.marker;
 
     saturation = saturation.toFixed(1) * 1;
     value = value.toFixed(1) * 1;
@@ -434,9 +434,9 @@
    * @param {object} event The MouseEvent object.
    */
   function moveMarker(event) {
-    var pointer = getPointerPosition(event);
-    var x = pointer.pageX - colorAreaDims.x;
-    var y = pointer.pageY - colorAreaDims.y;
+    let pointer = getPointerPosition(event);
+    let x = pointer.pageX - colorAreaDims.x;
+    let y = pointer.pageY - colorAreaDims.y;
 
     if (settings.parent) {
       y += settings.parent.scrollTop;
@@ -461,8 +461,8 @@
    * * @param {number} offsetY The vertical amount to move.
    */
   function moveMarkerOnKeydown(offsetX, offsetY) {
-    var x = colorMarker.style.left.replace("px", "") * 1 + offsetX;
-    var y = colorMarker.style.top.replace("px", "") * 1 + offsetY;
+    let x = colorMarker.style.left.replace("px", "") * 1 + offsetX;
+    let y = colorMarker.style.top.replace("px", "") * 1 + offsetY;
 
     colorMarker.style.left = x + "px";
     colorMarker.style.top = y + "px";
@@ -482,18 +482,18 @@
     if (hsva === void 0) {
       hsva = {};
     }
-    var format = settings.format;
+    let format = settings.format;
 
-    for (var key in rgba) {
+    for (let key in rgba) {
       currentColor[key] = rgba[key];
     }
 
-    for (var _key in hsva) {
+    for (let _key in hsva) {
       currentColor[_key] = hsva[_key];
     }
 
-    var hex = RGBAToHex(currentColor);
-    var opaqueHex = hex.substring(0, 7);
+    let hex = RGBAToHex(currentColor);
+    let opaqueHex = hex.substring(0, 7);
 
     colorMarker.style.color = opaqueHex;
     alphaMarker.parentNode.style.color = opaqueHex;
@@ -536,9 +536,9 @@
    * Set the hue when its slider is moved.
    */
   function setHue() {
-    var hue = hueSlider.value * 1;
-    var x = colorMarker.style.left.replace("px", "") * 1;
-    var y = colorMarker.style.top.replace("px", "") * 1;
+    let hue = hueSlider.value * 1;
+    let x = colorMarker.style.left.replace("px", "") * 1;
+    let y = colorMarker.style.top.replace("px", "") * 1;
 
     picker.style.color = "hsl(" + hue + ", 100%, 50%)";
     hueMarker.style.left = (hue / 360) * 100 + "%";
@@ -550,7 +550,7 @@
    * Set the alpha when its slider is moved.
    */
   function setAlpha() {
-    var alpha = alphaSlider.value / 100;
+    let alpha = alphaSlider.value / 100;
 
     alphaMarker.style.left = alpha * 100 + "%";
     updateColor({ a: alpha });
@@ -563,20 +563,20 @@
    * @return {object} Red, green, blue and alpha values.
    */
   function HSVAtoRGBA(hsva) {
-    var saturation = hsva.s / 100;
-    var value = hsva.v / 100;
-    var chroma = saturation * value;
-    var hueBy60 = hsva.h / 60;
-    var x = chroma * (1 - Math.abs((hueBy60 % 2) - 1));
-    var m = value - chroma;
+    let saturation = hsva.s / 100;
+    let value = hsva.v / 100;
+    let chroma = saturation * value;
+    let hueBy60 = hsva.h / 60;
+    let x = chroma * (1 - Math.abs((hueBy60 % 2) - 1));
+    let m = value - chroma;
 
     chroma = chroma + m;
     x = x + m;
 
-    var index = Math.floor(hueBy60) % 6;
-    var red = [chroma, x, m, m, x, chroma][index];
-    var green = [x, chroma, chroma, x, m, m][index];
-    var blue = [m, m, x, chroma, chroma, x][index];
+    let index = Math.floor(hueBy60) % 6;
+    let red = [chroma, x, m, m, x, chroma][index];
+    let green = [x, chroma, chroma, x, m, m][index];
+    let blue = [m, m, x, chroma, chroma, x][index];
 
     return {
       r: Math.round(red * 255),
@@ -592,9 +592,9 @@
    * @return {object} Hue, saturation, lightness and alpha values.
    */
   function HSVAtoHSLA(hsva) {
-    var value = hsva.v / 100;
-    var lightness = value * (1 - hsva.s / 100 / 2);
-    var saturation;
+    let value = hsva.v / 100;
+    let lightness = value * (1 - hsva.s / 100 / 2);
+    let saturation;
 
     if (lightness > 0 && lightness < 1) {
       saturation = Math.round(
@@ -616,15 +616,15 @@
    * @return {object} Hue, saturation, value and alpha values.
    */
   function RGBAtoHSVA(rgba) {
-    var red = rgba.r / 255;
-    var green = rgba.g / 255;
-    var blue = rgba.b / 255;
-    var xmax = Math.max(red, green, blue);
-    var xmin = Math.min(red, green, blue);
-    var chroma = xmax - xmin;
-    var value = xmax;
-    var hue = 0;
-    var saturation = 0;
+    let red = rgba.r / 255;
+    let green = rgba.g / 255;
+    let blue = rgba.b / 255;
+    let xmax = Math.max(red, green, blue);
+    let xmin = Math.min(red, green, blue);
+    let chroma = xmax - xmin;
+    let value = xmax;
+    let hue = 0;
+    let saturation = 0;
 
     if (chroma) {
       if (xmax === red) {
@@ -657,9 +657,9 @@
    * @return {object} Red, green, blue and alpha values.
    */
   function strToRGBA(str) {
-    var regex =
+    let regex =
       /^((rgba)|rgb)[\D]+([\d.]+)[\D]+([\d.]+)[\D]+([\d.]+)[\D]*?([\d.]+|$)/i;
-    var match, rgba;
+    let match, rgba;
 
     // Default to black for invalid color strings
     ctx.fillStyle = "#000";
@@ -699,10 +699,10 @@
    * @return {string} Hex color string.
    */
   function RGBAToHex(rgba) {
-    var R = rgba.r.toString(16);
-    var G = rgba.g.toString(16);
-    var B = rgba.b.toString(16);
-    var A = "";
+    let R = rgba.r.toString(16);
+    let G = rgba.g.toString(16);
+    let B = rgba.b.toString(16);
+    let A = "";
 
     if (rgba.r < 16) {
       R = "0" + R;
@@ -717,7 +717,7 @@
     }
 
     if (settings.alpha && rgba.a < 1) {
-      var alpha = (rgba.a * 255) | 0;
+      let alpha = (rgba.a * 255) | 0;
       A = alpha.toString(16);
 
       if (alpha < 16) {
@@ -905,7 +905,7 @@
     });
 
     addListener(colorMarker, "keydown", function (event) {
-      var movements = {
+      let movements = {
         ArrowUp: [0, -1],
         ArrowDown: [0, 1],
         ArrowLeft: [-1, 0],
@@ -940,7 +940,7 @@
    * @param {function} [fn] Event handler if delegation is used.
    */
   function addListener(context, type, selector, fn) {
-    var matches =
+    let matches =
       Element.prototype.matches || Element.prototype.msMatchesSelector;
 
     // Delegate event to the target of the selector
@@ -987,7 +987,7 @@
 
   // Expose the color picker to the global scope
   window.Coloris = (function () {
-    var methods = {
+    let methods = {
       set: configure,
       wrap: wrapFields,
       close: closePicker,
@@ -1004,10 +1004,10 @@
         }
       });
     }
-    var _loop = function _loop(key) {
+    let _loop = function _loop(key) {
       Coloris[key] = function () {
         for (
-          var _len = arguments.length, args = new Array(_len), _key2 = 0;
+          let _len = arguments.length, args = new Array(_len), _key2 = 0;
           _key2 < _len;
           _key2++
         ) {
@@ -1016,7 +1016,7 @@
         DOMReady(methods[key], args);
       };
     };
-    for (var key in methods) {
+    for (let key in methods) {
       _loop(key);
     }
 

@@ -94,7 +94,7 @@ function changeColumnColor(inputColor) {
 
 /* Function convert hex to rgb */
 function hexToRgb(hex) {
-  var c;
+  let c;
   c = hex.substring(1).split("");
   if (c.length == 3) {
     c = [c[0], c[0], c[1], c[1], c[2], c[2]];
